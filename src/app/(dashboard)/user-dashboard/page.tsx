@@ -1,5 +1,6 @@
 import React from "react";
 import { Briefcase, Package, CreditCard, User } from "lucide-react";
+import Link from "next/link";
 
 export default function UserDashboard() {
   const stats = [
@@ -13,21 +14,25 @@ export default function UserDashboard() {
     {
       title: "Requests",
       description: "Browse and post investment requirements.",
+      href: "/user-dashboard/requests",
       icon: Briefcase,
     },
     {
       title: "Stock",
       description: "View curated property listings.",
+      href: "/user-dashboard/stock",
       icon: Package,
     },
     {
       title: "Subscription",
       description: "Manage your membership plan.",
+      href: "/user-dashboard/subscription",
       icon: CreditCard,
     },
     {
       title: "Profile",
       description: "Update your role and preferences.",
+      href: "/user-dashboard/profile",
       icon: User,
     },
   ];
@@ -83,7 +88,9 @@ export default function UserDashboard() {
                 <p className="text-xs sm:text-sm text-[#99A1AF] mb-4">
                   {action.description}
                 </p>
-                <span className="text-sm text-primary">Open →</span>
+                <Link href={action.href} className="text-sm text-primary">
+                  Open →
+                </Link>
               </div>
             );
           })}
