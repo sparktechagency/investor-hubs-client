@@ -10,113 +10,14 @@ import {
   Lock,
   X,
 } from "lucide-react";
+import { toast } from "sonner";
 
 const STEPS = [
-  { id: 1, title: "Personal Info", icon: UserStepIcon },
-  { id: 2, title: "Financial Status", icon: WalletStepIcon },
-  { id: 3, title: "Documents", icon: FileStepIcon },
-  { id: 4, title: "Review", icon: CheckStepIcon },
+  { id: 1, title: "Personal Info" },
+  { id: 2, title: "Financial Status" },
+  { id: 3, title: "Documents" },
+  { id: 4, title: "Review" },
 ];
-
-function UserStepIcon({
-  active,
-  completed,
-}: {
-  active: boolean;
-  completed: boolean;
-}) {
-  return (
-    <div
-      className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${
-        active
-          ? "border-primary text-primary"
-          : completed
-            ? "border-primary bg-primary text-black"
-            : "border-gray-700 text-gray-700"
-      }`}
-    >
-      {completed ? (
-        <Check className="w-5 h-5" />
-      ) : (
-        <span className="font-serif font-bold">1</span>
-      )}
-    </div>
-  );
-}
-
-function WalletStepIcon({
-  active,
-  completed,
-}: {
-  active: boolean;
-  completed: boolean;
-}) {
-  return (
-    <div
-      className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${
-        active
-          ? "border-primary text-primary"
-          : completed
-            ? "border-primary bg-primary text-black"
-            : "border-gray-700 text-gray-700"
-      }`}
-    >
-      {completed ? (
-        <Check className="w-5 h-5" />
-      ) : (
-        <span className="font-serif font-bold">2</span>
-      )}
-    </div>
-  );
-}
-
-function FileStepIcon({
-  active,
-  completed,
-}: {
-  active: boolean;
-  completed: boolean;
-}) {
-  return (
-    <div
-      className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${
-        active
-          ? "border-primary text-primary"
-          : completed
-            ? "border-primary bg-primary text-black"
-            : "border-gray-700 text-gray-700"
-      }`}
-    >
-      {completed ? (
-        <Check className="w-5 h-5" />
-      ) : (
-        <span className="font-serif font-bold">3</span>
-      )}
-    </div>
-  );
-}
-
-function CheckStepIcon({
-  active,
-  completed,
-}: {
-  active: boolean;
-  completed: boolean;
-}) {
-  return (
-    <div
-      className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-colors ${
-        active
-          ? "border-primary text-primary"
-          : completed
-            ? "border-primary bg-primary text-black"
-            : "border-gray-700 text-gray-700"
-      }`}
-    >
-      <span className="font-serif font-bold">4</span>
-    </div>
-  );
-}
 
 interface IdentityVerificationModalProps {
   isOpen: boolean;
@@ -139,7 +40,7 @@ export default function IdentityVerificationModal({
     sourceOfFunds: "",
   });
 
-  const [files, setFiles] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
 
   if (!isOpen) return null;
 
@@ -151,9 +52,25 @@ export default function IdentityVerificationModal({
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const handleFileDrop = (e: React.DragEvent) => {
+  const handleFiles = (selectedFiles: FileList | null) => {
+    if (!selectedFiles) return;
+
+    const validFiles = Array.from(selectedFiles).filter(
+      (file) =>
+        ["application/pdf", "image/jpeg", "image/png"].includes(file.type) &&
+        file.size <= 10 * 1024 * 1024, // 10MB
+    );
+
+    setFiles((prev) => [...prev, ...validFiles]);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault();
-    setFiles([...files, "id_document.pdf"]);
+    handleFiles(e.dataTransfer.files);
+  };
+
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -181,39 +98,78 @@ export default function IdentityVerificationModal({
               </p>
             </div>
 
-            {/* Progress Bar */}
-            <div className="flex justify-between items-center mb-10 sm:mb-12 relative px-2 sm:px-4">
-              <div className="absolute top-5 left-4 right-4 h-0.5 bg-gray-800 -z-10" />
-              <div
-                className="absolute top-5 left-4 h-0.5 bg-primary -z-10 transition-all duration-500"
-                style={{
-                  width: `calc(${((currentStep - 1) / 3) * 100}% - 8px)`,
-                }}
-              />
+            {/* Step Header */}
+            <div className="mb-10">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                {STEPS.map((step, index) => {
+                  const isActive = currentStep === step.id;
+                  const isCompleted = currentStep > step.id;
 
-              {STEPS.map((step) => {
-                const Icon = step.icon;
-                const isActive = currentStep === step.id;
-                const isCompleted = currentStep > step.id;
+                  return (
+                    <React.Fragment key={step.id}>
+                      {/* Step */}
+                      <div className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0">
+                        {/* Circle */}
+                        <div
+                          className={`
+                w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-2
+                transition-colors shrink-0
+                ${
+                  isCompleted
+                    ? "bg-primary border-primary text-black"
+                    : isActive
+                      ? "border-primary text-primary"
+                      : "border-gray-700 text-gray-600"
+                }
+              `}
+                        >
+                          {isCompleted ? (
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+                          ) : (
+                            <span className="font-serif font-bold text-sm sm:text-base">
+                              {step.id}
+                            </span>
+                          )}
+                        </div>
 
-                return (
-                  <div
-                    key={step.id}
-                    className="flex flex-col items-center bg-[#0D0D0D] px-1 sm:px-2"
-                  >
-                    <Icon active={isActive} completed={isCompleted} />
-                    <span
-                      className={`text-[9px] sm:text-[10px] md:text-xs mt-2 font-medium uppercase tracking-wider hidden xs:block ${
-                        isActive || isCompleted
-                          ? "text-primary"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      {step.title}
-                    </span>
-                  </div>
-                );
-              })}
+                        {/* Label */}
+                        <span
+                          className={`
+                text-xs uppercase tracking-wide
+                sm:mt-3
+                ${isActive || isCompleted ? "text-primary" : "text-gray-600"}
+              `}
+                        >
+                          {step.title}
+                        </span>
+                      </div>
+
+                      {/* Connector */}
+                      {index < STEPS.length - 1 && (
+                        <>
+                          {/* Horizontal (desktop) */}
+                          <div
+                            className={`hidden sm:block flex-1 h-px mx-3 transition-colors ${
+                              currentStep > step.id
+                                ? "bg-primary"
+                                : "bg-gray-800"
+                            }`}
+                          />
+
+                          {/* Vertical (mobile) */}
+                          <div
+                            className={`sm:hidden w-px h-6 ml-4 transition-colors ${
+                              currentStep > step.id
+                                ? "bg-primary"
+                                : "bg-gray-800"
+                            }`}
+                          />
+                        </>
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Form Content */}
@@ -347,11 +303,12 @@ export default function IdentityVerificationModal({
                     Document Verification
                   </h2>
 
-                  <div
-                    className="border-2 border-dashed border-primary/30 rounded-xl p-6 sm:p-12 text-center hover:border-primary transition-colors cursor-pointer bg-[#0A0A0A]"
+                  {/* Upload Area */}
+                  <label
+                    htmlFor="file-upload"
                     onDragOver={(e) => e.preventDefault()}
-                    onDrop={handleFileDrop}
-                    onClick={() => setFiles([...files, "passport_scan.pdf"])}
+                    onDrop={handleDrop}
+                    className="block border-2 border-dashed border-primary/30 rounded-xl p-6 sm:p-12 text-center hover:border-primary transition-colors cursor-pointer bg-[#0A0A0A]"
                   >
                     <Upload className="w-10 h-10 sm:w-12 sm:h-12 text-gray-500 mx-auto mb-3 sm:mb-4" />
                     <h3 className="text-white font-medium mb-1 sm:mb-2 text-sm sm:text-base">
@@ -361,10 +318,20 @@ export default function IdentityVerificationModal({
                       Drag and drop or click to browse
                     </p>
                     <p className="text-[10px] sm:text-xs text-gray-600">
-                      Supported formats: PDF, JPG, PNG (Max 10MB)
+                      PDF, JPG, PNG • Max 10MB
                     </p>
-                  </div>
 
+                    <input
+                      id="file-upload"
+                      type="file"
+                      multiple
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      className="hidden"
+                      onChange={(e) => handleFiles(e.target.files)}
+                    />
+                  </label>
+
+                  {/* Uploaded Files */}
                   {files.length > 0 && (
                     <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
                       {files.map((file, idx) => (
@@ -373,19 +340,26 @@ export default function IdentityVerificationModal({
                           className="flex items-center justify-between bg-[#1A1A1A] p-2.5 sm:p-3 rounded border border-gray-800"
                         >
                           <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
-                            <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary shrink-0" />
+                            <FileText className="w-4 h-4 text-primary shrink-0" />
                             <span className="text-xs sm:text-sm text-gray-300 truncate">
-                              {file}
+                              {file.name}
                             </span>
                           </div>
-                          <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 shrink-0" />
+
+                          <button
+                            onClick={() => removeFile(idx)}
+                            className="text-gray-500 hover:text-red-400 transition cursor-pointer"
+                          >
+                            ✕
+                          </button>
                         </div>
                       ))}
                     </div>
                   )}
 
+                  {/* Security Notice */}
                   <div className="flex gap-2.5 sm:gap-3 bg-blue-900/10 border border-blue-900/30 p-3 sm:p-4 rounded text-[11px] sm:text-xs md:text-sm text-blue-200 mt-6 md:mt-8">
-                    <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 mt-0.5" />
+                    <Lock className="w-4 h-4 shrink-0 mt-0.5" />
                     <p className="leading-relaxed">
                       Your documents are encrypted and stored securely. We never
                       share your personal data without your explicit consent.
@@ -459,7 +433,7 @@ export default function IdentityVerificationModal({
                 ) : (
                   <button
                     onClick={() => {
-                      alert("Application Submitted!");
+                      toast.success("Identity verification submitted!");
                       onClose();
                     }}
                     className="cursor-pointer order-1 sm:order-2 w-full sm:w-auto bg-primary text-black px-8 py-2.5 sm:py-3 rounded font-semibold hover:bg-[#F4CF57] transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10 text-sm sm:text-base border border-primary/20"

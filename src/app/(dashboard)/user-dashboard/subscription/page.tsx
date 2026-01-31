@@ -87,14 +87,14 @@ export function Subscription() {
                 </div>
               </div>
             </div>
-            <button className="px-4 py-2 text-sm text-primary hover:text-[#E4C77D] transition-colors self-end sm:self-auto">
+            <button className="px-4 py-2 text-sm text-primary hover:text-[#E4C77D] transition-colors self-end sm:self-auto cursor-pointer">
               Update
             </button>
           </div>
 
           <button
             onClick={() => setShowAddPayment(!showAddPayment)}
-            className="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2"
+            className="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             Add new payment method
@@ -134,7 +134,7 @@ export function Subscription() {
                       {invoice.status}
                     </div>
                   </div>
-                  <button className="text-primary hover:text-[#E4C77D] transition-colors text-xs sm:text-sm flex items-center gap-1">
+                  <button className="text-primary hover:text-[#E4C77D] transition-colors text-xs sm:text-sm flex items-center gap-1 cursor-pointer">
                     <Download className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span className="hidden sm:inline">Download</span>
                   </button>
@@ -155,7 +155,7 @@ export function Subscription() {
           </p>
           <button
             onClick={() => setShowCancelModal(true)}
-            className="px-4 sm:px-6 py-2 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors text-sm sm:text-base"
+            className="px-4 sm:px-6 py-2 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors text-sm sm:text-base cursor-pointer"
           >
             Cancel Subscription
           </button>
@@ -172,7 +172,7 @@ export function Subscription() {
               </h3>
               <button
                 onClick={() => setShowCancelModal(false)}
-                className="text-gray-400 hover:text-white transition"
+                className="text-gray-400 hover:text-white transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -187,7 +187,7 @@ export function Subscription() {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => setShowCancelModal(false)}
-                className="flex-1 px-4 py-2.5 bg-primary text-black font-medium rounded-lg hover:bg-[#E4C77D] transition-colors"
+                className="flex-1 px-4 py-2.5 bg-primary text-black font-medium rounded-lg hover:bg-[#E4C77D] transition-colors cursor-pointer"
               >
                 Keep Subscription
               </button>
@@ -196,7 +196,7 @@ export function Subscription() {
                   // Handle cancellation logic here
                   setShowCancelModal(false);
                 }}
-                className="flex-1 px-4 py-2.5 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors"
+                className="flex-1 px-4 py-2.5 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-500/10 transition-colors cursor-pointer"
               >
                 Yes, Cancel
               </button>
@@ -215,7 +215,7 @@ export function Subscription() {
               </h3>
               <button
                 onClick={() => setShowAddPayment(false)}
-                className="text-gray-400 hover:text-white transition"
+                className="text-gray-400 hover:text-white transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -258,7 +258,7 @@ export function Subscription() {
 
               <button
                 onClick={() => setShowAddPayment(false)}
-                className="w-full px-4 py-2.5 bg-primary text-black font-medium rounded-lg hover:bg-[#E4C77D] transition-colors"
+                className="w-full px-4 py-2.5 bg-primary text-black font-medium rounded-lg hover:bg-[#E4C77D] transition-colors cursor-pointer"
               >
                 Add Card
               </button>
