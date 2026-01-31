@@ -14,7 +14,6 @@ import {
   FileText,
   Package,
   CreditCard,
-  HelpCircle,
 } from "lucide-react";
 
 interface NavItem {
