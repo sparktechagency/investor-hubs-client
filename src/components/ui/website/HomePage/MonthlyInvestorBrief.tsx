@@ -6,7 +6,7 @@ const MonthlyInvestorBrief = () => {
   return (
     <section className="py-10 md:py-24 bg-[#0A0A0A]">      
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
-        <div className="bg-gradient-to-br from-[#111111] to-[#0A0A0A] border border-[#D4AF37]/30 rounded-2xl p-12">
+        <div className="">
           <div className="text-center mb-8">
             
             <h2 className="text-4xl text-start font-serif text-white">

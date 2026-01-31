@@ -17,17 +17,9 @@ const WhatIsInvestorHub = () => {
                 </h2>
                 <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
                     <p className='text-justify'>
-                        Investors Hub is a <strong className="text-white">paid, private investor platform</strong> that connects
-                        serious property investors and developers with <strong className="text-white">off-market opportunities</strong> that
-                        never reach public listing portals.
+                       Investors Hub is a paid, private investment platform exclusively for serious property and business investors. This is not a traditional listing portal it's a discreet network where verified investors access off-market opportunities and connect anonymously.
                     </p>
-                    <p className='text-justify'>
-                        This is <strong className="text-[#D4AF37]">not a traditional property portal</strong>. We focus exclusively on
-                        discretion, verified members, and high-value deals that require confidentiality.
-                    </p>
-                    <p className="text-gray-400 text-base italic">
-                        For serious investors who value privacy, early access, and direct connections.
-                    </p>
+                    
                 </div>
                 <div className="md:mt-6 mb-6 mt-3 flex items-center flex-wrap gap-3 ">
                 <Button size="xs" className=" whitespace-nowrap  bg-primary/10 border border-primary/30 rounded-full text-primary! hover:text-white!  font-medium md:mb-8">
