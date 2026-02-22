@@ -21,7 +21,7 @@ export default function OTPVerifyForm() {
   const [resetKey, setResetKey] = useState(0);
 
   const [resendOtp] = useResendOtpMutation();
-  const [verifyOtp ] = useVerifyOTPMutation()
+  const [verifyOtp] = useVerifyOTPMutation()
 
   const email = Cookies.get("verify-email");
   const router = useRouter();
@@ -87,20 +87,20 @@ export default function OTPVerifyForm() {
     }
 
     setIsLoading(true);
-    setError('');
-    router.push("new-password")
     try {
-      const response = await verifyOtp({email, oneTimeCode: code})?.unwrap();
+      const response = await verifyOtp({ email, oneTimeCode: Number(code) })?.unwrap();
 
-      if(response?.success){
+      if (response?.success) {
         toast?.success(response?.message);
-        router.push("/new-password");
+        Cookies.set("resetToken", response?.data?.verifyToken)
+        router.replace("/new-password");
+        setIsLoading(false);
       }
 
-    } catch (err) {
+    } catch (err: any) {
+      toast?.success(err?.data?.message);
       const errorMessage = err instanceof Error ? err.message : 'An error occurred';
       setError(errorMessage);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -110,6 +110,7 @@ export default function OTPVerifyForm() {
     try {
       const response = await resendOtp({ email })?.unwrap();
       if (response?.success) {
+        toast.success(response?.message)
         router.refresh()
         Cookies.set("otpExpiry", String(Date.now() + 180_000));
 
@@ -121,6 +122,8 @@ export default function OTPVerifyForm() {
         setTimeout(() => inputRefs.current[0]?.focus(), 100);
       }
     } catch (error: any) {
+      console.log("error", error);
+
       toast.error(error?.data?.message)
     }
   };
