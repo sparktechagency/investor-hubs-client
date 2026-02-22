@@ -62,7 +62,7 @@ export function SignupForm() {
     }
 
     // Validate role-specific required fields
-    if (formData.role === 'agent') {
+    if (formData.role === 'AGENT') {
       if (!formData.agencyDetails || !formData.ffcNumber) {
         setError('Please fill in all agent details');
         setIsLoading(false);
@@ -70,7 +70,7 @@ export function SignupForm() {
       }
     }
 
-    if (formData.role === 'investor') {
+    if (formData.role === 'INVESTOR') {
       if (!formData.investorType || !formData.investmentBudget || !formData.location) {
         setError('Please fill in all investor details');
         setIsLoading(false);
@@ -78,7 +78,7 @@ export function SignupForm() {
       }
     }
 
-    if (formData.role === 'developer') {
+    if (formData.role === 'DEVELOPER') {
       if (!formData.companyName) {
         setError('Please provide your company name');
         setIsLoading(false);

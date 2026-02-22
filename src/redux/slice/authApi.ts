@@ -42,8 +42,13 @@ const authApi = baseApi.injectEndpoints({
         url: "/auth/change-password",
         method: "POST",
         body: data,
+        headers: {
+          "Content-Type": "application/json",          
+          "Authorization": `Bearer ${Cookies.get("accessToken")}`
+        }, 
       }),
     }),
+    
 
     forgetPassword: build.mutation({
       query: (data) => {
