@@ -9,36 +9,21 @@ import {
   Shield,
   Upload,
   Camera,
+  X,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useEditProfileMutation } from "@/redux/slice/userApi";
 import IdentityVerificationModal from "@/components/dashboard/Profile/IdentityVerificationModal";
+import Image from "next/image";
+import { getImageUrl } from "@/utils/baseUrl";
 
 const ROLES = ["INVESTOR", "AGENT", "DEVELOPER", "SELLER"] as const;
 type Role = (typeof ROLES)[number];
 
-interface Profile {
-  role?: Role;
-  name?: string;
-  email?: string;
-  phone?: string;
-  budget?: string;
-  buyingPower?: string;
-  agencyName?: string;
-  ffcNumber?: string;
-  companyName?: string;
-  image?: string;
-  // add isVerified?: boolean; when you implement real KYC
-}
-
-interface ProfilePageProps {
-  profile: Profile | null | undefined;
-}
-
-export default function ProfilePage({ profile }: ProfilePageProps) {
+export default function ProfilePage({ profile }: any) {
   const [role, setRole] = useState<Role>("INVESTOR");
   const [showVerificationModal, setShowVerificationModal] = useState(false);
-  const [isVerified] = useState(false); // ← replace with real data later
+  const [isVerified, setIsVerify] = useState(false);
 
   // Profile picture handling
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -56,6 +41,9 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
     ffcNumber: "",
     companyName: "",
   });
+
+
+  console.log("profile", profile);
 
   // Load initial profile data
   useEffect(() => {
@@ -77,6 +65,7 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
     if (profile.image) {
       setPreviewUrl(profile.image);
     }
+    setIsVerify(profile?.isKycVerified)
   }, [profile]);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +75,7 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
 
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-        
+
     if (!file) return;
 
     // Basic client-side validation
@@ -101,14 +90,13 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
     }
 
     setImageFile(file);
-
     const reader = new FileReader();
     reader.onload = () => setPreviewUrl(reader.result as string);
     reader.readAsDataURL(file);
   };
 
 
-  
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -180,16 +168,23 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
           <h2 className="text-xl font-serif text-white mb-4">Profile Photo</h2>
 
           <div className="flex flex-col sm:flex-row items-center gap-6">
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-primary/30 bg-[#0a0a0a] flex items-center justify-center">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-primary/30 bg-[#0a0a0a] flex items-center justify-center">
               {previewUrl ? (
-                <img
-                  src={previewUrl}
+                <Image
+                  src={imageFile ? previewUrl : `${getImageUrl() + previewUrl}`}
+                  height={150}
+                  width={150}
                   alt="Profile preview"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-full "
                 />
               ) : (
                 <User className="w-14 h-14 text-gray-500" />
               )}
+              {imageFile &&
+                <X
+                  size={20}
+                  onClick={() => { setImageFile(null); setPreviewUrl(profile?.image ?? ""); }}
+                  className="absolute -top-5 right-0 text-red-600 cursor-pointer" />}
             </div>
 
             <div className="flex flex-col items-center sm:items-start gap-3">
@@ -220,11 +215,11 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
           </div>
         </section>
 
-        {/* 2. Role Selection */}
+        {/* 2. Role Selection
         <section className="bg-[#111] border border-primary/20 rounded-xl p-6">
-          <h2 className="text-xl font-serif text-white mb-4">Account Type</h2>
+          <h2 className="text-xl font-serif text-white mb-4 ">Account Type <span className="capitalize! text-primary">({profile?.role})</span></h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {ROLES.map((r) => (
+           {ROLES.map((r) => (
               <button
                 key={r}
                 type="button"
@@ -238,40 +233,46 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
               </button>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* 3. Verification Status */}
         <section
           className={`rounded-xl p-6 border flex flex-col sm:flex-row items-center justify-between gap-6 ${isVerified
-              ? "bg-gradient-to-br from-green-950/30 to-[#111] border-green-700/30"
-              : "bg-gradient-to-br from-amber-950/20 to-[#111] border-primary/30"
+            ? "bg-gradient-to-br from-green-950/30 to-[#111] border-green-700/30"
+            : "bg-gradient-to-br from-amber-950/20 to-[#111] border-primary/30"
             }`}
         >
-          <div className="flex items-center gap-4">
-            <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${isVerified ? "bg-green-600/20" : "bg-primary/10"
-                }`}
-            >
-              {isVerified ? (
-                <CheckCircle className="w-6 h-6 text-green-400" />
-              ) : (
-                <Shield className="w-6 h-6 text-primary" />
-              )}
-            </div>
-            <div>
-              <h3
-                className={`font-medium ${isVerified ? "text-green-300" : "text-primary"
+          <div className="">
+            <h2 className="text-xl font-serif text-white mb-4 ">Account Type <span className="capitalize! text-primary">({profile?.role})</span></h2>
+
+            <div className="flex items-center gap-4">
+
+              <div
+                className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${isVerified ? "bg-green-600/20" : "bg-primary/10"
                   }`}
               >
-                {isVerified ? "Verified" : "Identity Verification Required"}
-              </h3>
-              <p className="text-sm text-gray-400 mt-1">
-                {isVerified
-                  ? "Your identity has been confirmed."
-                  : "Complete verification to access full features."}
-              </p>
+                {isVerified ? (
+                  <CheckCircle className="w-6 h-6 text-green-400" />
+                ) : (
+                  <Shield className="w-6 h-6 text-primary" />
+                )}
+              </div>
+              <div>
+                <h3
+                  className={`font-medium ${isVerified ? "text-green-300" : "text-primary"
+                    }`}
+                >
+                  {isVerified ? "Verified" : "Identity Verification Required"}
+                </h3>
+                <p className="text-sm text-gray-400 mt-1">
+                  {isVerified
+                    ? "Your identity has been confirmed."
+                    : "Complete verification to access full features."}
+                </p>
+              </div>
             </div>
           </div>
+
 
           {!isVerified && (
             <button
@@ -382,8 +383,8 @@ export default function ProfilePage({ profile }: ProfilePageProps) {
                 type="submit"
                 disabled={isSaving}
                 className={`w-full sm:w-auto px-8 py-3 rounded-lg font-semibold transition ${isSaving
-                    ? "bg-primary/60 text-black/70 cursor-not-allowed"
-                    : "bg-primary hover:bg-amber-300 text-black shadow-lg shadow-primary/20"
+                  ? "bg-primary/60 text-black/70 cursor-not-allowed"
+                  : "bg-primary hover:bg-amber-300 text-black shadow-lg shadow-primary/20"
                   }`}
               >
                 {isSaving ? "Saving..." : "Save Changes"}

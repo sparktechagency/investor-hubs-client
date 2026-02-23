@@ -2,6 +2,12 @@
 const nextConfig = {
   images: {
     remotePatterns: [
+       {
+        protocol: 'http',
+        hostname: '10.10.7.48',
+        port: '5000',
+        pathname: '/**',  // optional but good to have
+      },
       {
         protocol: "http",
         hostname: "**",
@@ -15,6 +21,7 @@ const nextConfig = {
         hostname: "10.10.7.48",
       },
     ],
+    dangerouslyAllowLocalIP: process.env.NODE_ENV === 'development' ? true : false,  // ← Correct: top-level under images
   },
 
   experimental: {

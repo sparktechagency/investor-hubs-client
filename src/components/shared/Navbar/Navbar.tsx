@@ -32,13 +32,15 @@ export function Navbar({ profile }: { profile?: any }) {
       <Container>
         <div className="flex items-center justify-between">
           <div className={`flex items-center gap-3`}>
+            <Link href="/user-dashboard">
             <Image
-              height={50}
+              height={150}
               width={150}
               src="/logo.png"
               alt="Investors Hub"
               className="h-20 object-cover overflow-visible"
             />
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center gap-8">
@@ -59,7 +61,7 @@ export function Navbar({ profile }: { profile?: any }) {
           <div className="flex items-center gap-4">
             {profile ?
             <>
-              {profile?.image ? <Image height={100} width={100} className="h-20 w-20 rounded-full border-2 border-gray-400/30" src={getImageUrl() + profile?.image} alt="Profile" />
+              {profile?.image ? <Image height={100} width={100} className="h-20 w-20 rounded-full border-2 border-gray-400/30"  src={getImageUrl() + profile?.image} alt="Profile" />
               : <Avatar  {...getStringToAvater(profile?.name, {height: 50, width: 50})} />  
             }
               <Button

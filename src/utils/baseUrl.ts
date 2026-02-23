@@ -3,5 +3,5 @@ export const getBaseUrl = () => {
 };
 
 export const getImageUrl = () => {
-  return process.env.NEXT_PUBLIC_IMAGE_BASE_URL;
+  return process.env.NEXT_PUBLIC_IMAGE_URL;
 };

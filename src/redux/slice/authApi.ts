@@ -43,18 +43,18 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
         headers: {
-          "Content-Type": "application/json",          
+          "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get("accessToken")}`
-        }, 
+        },
       }),
     }),
-    
+
 
     forgetPassword: build.mutation({
       query: (data) => {
         return {
           // url: "/auth/forgot-password",          
-          url: "/auth/forget-password",          
+          url: "/auth/forget-password",
           method: "POST",
           body: data,
         };
@@ -65,35 +65,35 @@ const authApi = baseApi.injectEndpoints({
         return {
           url: "/auth/verify-email",
           method: "POST",
-          body: data,
+          body: data,         
         };
       },
     }),
 
     // reset password
-    resetPassword: build.mutation({      
+    resetPassword: build.mutation({
       query: (data) => {
 
-       return {
-        url: "/auth/reset-password",
-        method: "POST",
-        body: data,
-        headers: {
-          "Content-Type": "application/json",          
-          "token": `${Cookies.get("resetToken")}`, 
-        },                    
-        }      
+        return {
+          url: "/auth/reset-password",
+          method: "POST",
+          body: data,
+          headers: {
+            "Content-Type": "application/json",
+            "token": `${Cookies.get("resetToken")}`,
+          },
+        }
       },
     }),
 
     // reset password
-    resendOtp: build.mutation({      
+    resendOtp: build.mutation({
       query: (data) => {
-       return {
-        url: "/auth/resend-otp",
-        method: "POST",
-        body: data,                            
-        }      
+        return {
+          url: "/auth/resend-otp",
+          method: "POST",
+          body: data,
+        }
       },
     }),
   }),
@@ -108,5 +108,5 @@ export const {
   useResendOtpMutation,
   useResetPasswordMutation,
   useVerifyOTPMutation,
-  useForgetPasswordMutation,  
+  useForgetPasswordMutation,
 } = authApi;
