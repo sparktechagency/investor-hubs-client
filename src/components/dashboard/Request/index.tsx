@@ -1,6 +1,6 @@
 "use client";
 
-import NewRequestModal from "@/components/dashboard/Request/NewRequestModal";
+import NewRequestModal from "@/components/dashboard/MyListing/MyRequest/NewRequestModal";
 import { BookmarkCheck, LayoutList, Plus } from "lucide-react";
 import { useState } from "react";
 import AllRequestList from "./AllRequestList";

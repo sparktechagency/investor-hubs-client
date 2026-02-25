@@ -34,8 +34,6 @@ function ChatListPanel({
 }) {
   const { data, isLoading } = useGetOwnerConversationQuery(requestId);
 
-  console.log("my conversion", data);
-  
   if (isLoading) {
     return <p className="p-4 text-gray-400">Loading conversations...</p>;
   }
@@ -108,7 +106,7 @@ function UserConversationWrapper({ requestId }: { requestId: string }) {
 
 // ───────────────── Main Modal ─────────────────
 
-export default function RequestDetailModal({
+export default function RequestConversationModal({
   open,
   onClose,
   request

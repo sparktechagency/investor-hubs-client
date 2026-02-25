@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 import { getImageUrl } from '@/utils/baseUrl';
 import { formatChatTime } from '../../Shared/FormatChatTime ';
-import RequestDetailModal from '../RequestDetailsModal';
+import RequestConversationModal from '../RequestConversationModal';
 import RequestCard from '../RequestCard';
 
 const MyRequest = () => {
@@ -37,7 +37,7 @@ const MyRequest = () => {
                     );
                 })
             )}
-            <RequestDetailModal request={selectRequest} open={openConversation} onClose={() => setOpenConversation(false)} />
+            <RequestConversationModal request={selectRequest} open={openConversation} onClose={() => setOpenConversation(false)} />
         </div>
     )
 }

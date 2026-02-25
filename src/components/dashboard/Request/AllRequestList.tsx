@@ -6,7 +6,7 @@ import { BookmarkCheck } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { formatChatTime } from '../Shared/FormatChatTime ';
-import RequestDetailModal from './RequestDetailsModal';
+import RequestConversationModal from './RequestConversationModal';
 import { toast } from 'sonner';
 import { useCreateChatMutation } from '@/redux/slice/chatApi';
 import RequestCard from './RequestCard';
@@ -45,7 +45,7 @@ const AllRequestList = () => {
                 requestsData?.data?.map((req: any, i: any) =>
                     <RequestCard key={i} req={req} setOpenConversation={setOpenConversation} setSelectRequest={setSelectRequest} />)
             )}
-            <RequestDetailModal request={selectRequest} open={openConversation} onClose={() => setOpenConversation(false)} />
+            <RequestConversationModal request={selectRequest} open={openConversation} onClose={() => setOpenConversation(false)} />
         </div>
     )
 }

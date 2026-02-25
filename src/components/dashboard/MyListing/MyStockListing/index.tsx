@@ -1,8 +1,13 @@
 import React from 'react'
+import StockListingStatics from './StockListingStatics'
+import MyStocks from './MyStocks'
 
 const MyStockListing = () => {
   return (
-    <div>MyStockListing</div>
+    <div>
+      <StockListingStatics />
+      <MyStocks />
+    </div>
   )
 }
 
