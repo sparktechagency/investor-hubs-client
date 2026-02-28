@@ -1,5 +1,8 @@
 import axios, { AxiosError } from "axios";
 import type { BaseQueryFn } from "@reduxjs/toolkit/query";
+import Cookies from "js-cookie";
+
+
 
 type AxiosBaseQueryArgs = {
   url: string;
@@ -16,7 +19,7 @@ export const axiosBaseQuery =
         url: baseUrl + url,
         method,
         data: body,
-        headers: headers || { "content-type": "application/json" },
+        headers: headers || { "content-type": "application/json", "Authorization": `Bearer ${Cookies?.get("accessToken")}` },
       });
       return { data: result.data };
     } catch (axiosError) {

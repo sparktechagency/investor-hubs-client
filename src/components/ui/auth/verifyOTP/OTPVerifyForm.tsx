@@ -5,30 +5,34 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { useOtpTimer } from '@/hooks/useOtpTimer';
+import { useResendOtpMutation, useVerifyOTPMutation } from '@/redux/slice/authApi';
+import { toast } from 'sonner';
+
 
 export default function OTPVerifyForm() {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timeLeft, setTimeLeft] = useState(180);
-  const [isLoading, setIsLoading] = useState(false);  
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isExpired, setIsExpired] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [resetKey, setResetKey] = useState(0);
 
+  const [resendOtp] = useResendOtpMutation();
+  const [verifyOtp] = useVerifyOTPMutation()
 
+  const email = Cookies.get("verify-email");
+  const resetEmail = Cookies.get("reset-email");
   const router = useRouter();
 
+  const secondsLeft = useOtpTimer(resetKey);
+
   useEffect(() => {
-    if (timeLeft <= 0) {
-      setIsExpired(true);
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeLeft]);
+    if (secondsLeft === null) return;
+        setTimeLeft(secondsLeft);
+  }, [secondsLeft]);
 
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
@@ -79,31 +83,48 @@ export default function OTPVerifyForm() {
     }
 
     setIsLoading(true);
-    setError('');
-router.push("new-password")
     try {
-      // Api call here
-      
-    } catch (err) {
+      const response = await verifyOtp({ email, oneTimeCode: Number(code) })?.unwrap();
+
+      if (response?.success) {
+        toast?.success(response?.message);
+        Cookies.set("resetToken", response?.data?.verifyToken)
+        router.replace(resetEmail ? "/new-password" : "/login");
+        setIsLoading(false);
+      }
+
+    } catch (err: any) {
+      toast?.success(err?.data?.message);
       const errorMessage = err instanceof Error ? err.message : 'An error occurred';
       setError(errorMessage);
-    } finally {
       setIsLoading(false);
     }
   };
 
-  const handleResend = () => {
-    setTimeLeft(180);
-    setIsExpired(false);
-    setOtp(['', '', '', '', '', '']);
-    setError('');
-    setIsLoading(false);
-    setTimeout(() => inputRefs.current[0]?.focus(), 100);
+  const handleResend = async () => {
+
+    try {
+      const response = await resendOtp({ email })?.unwrap();
+      if (response?.success) {
+        toast.success(response?.message)
+        router.refresh()
+        Cookies.set("otpExpiry", String(Date.now() + 180_000));
+
+        setResetKey(k => k + 1);
+        setIsExpired(false);
+        setOtp(['', '', '', '', '', '']);
+        setError('');
+        setIsLoading(false);
+        setTimeout(() => inputRefs.current[0]?.focus(), 100);
+      }
+    } catch (error: any) {      
+      toast.error(error?.data?.message)
+    }
   };
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-gradient-to-b from-[#0F0F0F] to-black text-white font-sans">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-linear-to-b from-[#0F0F0F] to-black text-white font-sans">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/5 mb-6 border border-primary/20 shadow-[0_0_20px_rgba(212,175,55,0.05)]">
@@ -111,13 +132,13 @@ router.push("new-password")
           </div>
           <h1 className="text-3xl md:text-4xl font-serif text-white mb-3">Security Verification</h1>
           <p className="text-gray-400 text-sm md:text-base px-4">
-            We've sent a 6-digit verification code to <br/>
-            <span className="text-primary font-medium">m***@luxuryconcierge.com</span>
+            We've sent a 6-digit verification code to <br />
+            <span className="text-primary font-medium">{email}</span>
           </p>
         </div>
 
         <div className="bg-[#141414] p-8 rounded-2xl border border-white/5 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-primary/40 to-transparent" />
 
           <form onSubmit={handleVerify} className="space-y-8">
             <div className="space-y-4">
@@ -129,7 +150,7 @@ router.push("new-password")
                 {otp.map((digit, index) => (
                   <Input
                     key={index}
-                    ref={(el:any) => {
+                    ref={(el: any) => {
                       if (el) inputRefs.current[index] = el;
                     }}
                     type="text"
@@ -140,9 +161,8 @@ router.push("new-password")
                     onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(index, e)}
                     disabled={isExpired || isLoading}
                     maxLength={1}
-                    className={`w-full h-14 md:h-16 text-center text-2xl font-bold ${
-                      isExpired ? 'opacity-50' : ''
-                    }`}
+                    className={`w-full h-14 md:h-16 text-center text-2xl font-bold ${isExpired ? 'opacity-50' : ''
+                      }`}
                   />
                 ))}
               </div>
@@ -216,7 +236,7 @@ router.push("new-password")
 
         <div className="mt-8 text-center">
           <p className="text-[10px] md:text-xs text-gray-600 uppercase tracking-widest leading-relaxed">
-            Secure Encrypted Session <br/>
+            Secure Encrypted Session <br />
             Ref ID: OTP-{Math.random().toString(36).substring(7).toUpperCase()}
           </p>
         </div>

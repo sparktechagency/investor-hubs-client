@@ -15,6 +15,12 @@ import {
   Package,
   CreditCard,
 } from "lucide-react";
+import Cookies from "js-cookie";
+import Image from "next/image";
+import { getImageUrl } from "@/utils/baseUrl";
+import { useGetProfileQuery } from "@/redux/slice/userApi";
+
+
 
 interface NavItem {
   name: string;
@@ -24,6 +30,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: "Dashboard", href: "/user-dashboard", icon: LayoutDashboard },
+  { name: "My Listing", href: "/user-dashboard/my-listing", icon: FileText },
   { name: "Requests", href: "/user-dashboard/requests", icon: FileText },
   { name: "Stock", href: "/user-dashboard/stock", icon: Package },
   {
@@ -41,13 +48,13 @@ const navItems: NavItem[] = [
 ];
 
 export function Sidebar() {
+
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-
+  const { data: profile } = useGetProfileQuery({});
   const handleLogout = () => {
-    // TODO: Implement actual logout logic
-    console.log("Logging out...");
+    Cookies.remove("accessToken");
     window.location.href = "/login";
   };
 
@@ -88,12 +95,15 @@ export function Sidebar() {
             <div className="flex items-center justify-between">
               {!isCollapsed && (
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary to-[#E4C77D] flex items-center justify-center">
-                    <User className="w-5 h-5 text-black" />
-                  </div>
+                  {profile?.image ? <Image height={100} width={100} className="h-12! w-12! rounded-full border-2 border-slate-200/80" src={getImageUrl() + profile?.image} alt="Profile" /> :
+                    <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary to-[#E4C77D] flex items-center justify-center">
+                      <User className="w-5 h-5 text-black" />
+                    </div>}
+
+
                   <div>
-                    <h3 className="text-white font-semibold">John Doe</h3>
-                    <p className="text-gray-400 text-xs">Investor</p>
+                    <h3 className="text-white font-semibold">{profile?.name}</h3>
+                    <p className="text-gray-400 text-xs">{profile?.email}</p>
                   </div>
                 </div>
               )}
@@ -102,9 +112,8 @@ export function Sidebar() {
                 className="hidden lg:block p-1.5 hover:bg-[#1A1A1A] rounded-lg transition-colors text-gray-400 hover:text-primary"
               >
                 <ChevronLeft
-                  className={`w-5 h-5 transition-transform ${
-                    isCollapsed ? "rotate-180" : ""
-                  }`}
+                  className={`w-5 h-5 transition-transform ${isCollapsed ? "rotate-180" : ""
+                    }`}
                 />
               </button>
             </div>
@@ -123,10 +132,9 @@ export function Sidebar() {
                   onClick={() => setIsMobileOpen(false)}
                   className={`
                     flex items-center gap-3 px-4 py-3 rounded-lg transition-all
-                    ${
-                      isActive
-                        ? "bg-[#D4AF371A] text-primary font-medium border border-[#D4AF374D]"
-                        : "text-[#99A1AF] hover:bg-[#1A1A1A] hover:text-primary/60"
+                    ${isActive
+                      ? "bg-[#D4AF371A] text-primary font-medium border border-[#D4AF374D]"
+                      : "text-[#99A1AF] hover:bg-[#1A1A1A] hover:text-primary/60"
                     }
                     ${isCollapsed ? "justify-center" : ""}
                   `}

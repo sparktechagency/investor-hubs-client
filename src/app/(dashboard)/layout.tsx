@@ -1,11 +1,12 @@
 import { Sidebar } from "@/components/dashboard/Shared/Sidebar";
 import { Topbar } from "@/components/dashboard/Shared/Topbar";
 
-export default function DashboardLayout({
+export default async function  DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
     <div className="flex h-screen bg-[#111111] overflow-hidden">
       <Sidebar />

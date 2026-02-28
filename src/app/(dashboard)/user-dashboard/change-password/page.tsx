@@ -10,6 +10,11 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useChangePasswordMutation } from "@/redux/slice/authApi";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
+
+
 
 export default function ChangePasswordPage() {
   const router = useRouter();
@@ -25,6 +30,9 @@ export default function ChangePasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+
+
+  const [changePassword] = useChangePasswordMutation()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,38 +66,23 @@ export default function ChangePasswordPage() {
       setIsLoading(false);
       return;
     }
-
+    
     try {
-      // TODO: Replace with actual password change API call
-      // const response = await fetch('/api/auth/change-password', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-      //   },
-      //   body: JSON.stringify({
-      //     currentPassword: formData.currentPassword,
-      //     newPassword: formData.newPassword
-      //   })
-      // });
+      
+      const response = await changePassword(formData)?.unwrap();
+      if(response?.success){
+        setIsLoading(false);
+        toast.success(response?.message);
+        setIsSuccess(true);
+        Cookies.remove("email")
+        Cookies.remove("password")
+        Cookies.remove("accessToken")
+      }
 
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Mock successful change
-      console.log("Password changed successfully");
-      setIsSuccess(true);
-
-      // Redirect to settings after 3 seconds
-      setTimeout(() => {
-        router.push("/user-dashboard/settings");
-      }, 3000);
-    } catch (err) {
-      setError("Current password is incorrect. Please try again.");
+    } catch (err:any) {
+      toast.error(err?.data?.message);
       console.error("Password change error:", err);
-    } finally {
-      setIsLoading(false);
-    }
+    } 
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
