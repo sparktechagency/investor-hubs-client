@@ -3,12 +3,15 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "../Container/Container";
 import { getImageUrl } from "@/utils/baseUrl";
 import Avatar from '@mui/material/Avatar';
 import getStringToAvater from "@/utils/getStringToAvater";
 import Cookies from "js-cookie";
+
+import { toast } from "sonner";
+import useSocket from "@/hooks/useSocket";
 
 
 export function Navbar({ profile }: { profile?: any }) {
@@ -21,6 +24,27 @@ export function Navbar({ profile }: { profile?: any }) {
     { name: "About", path: "/about" },
     { name: "Pricing", path: "/pricing" },
   ];
+
+    const socket = useSocket();
+
+  // ✅ FIX 2: Proper socket listener with cleanup
+  useEffect(() => {
+    if (!profile?._id || !socket) return;
+
+    console.log("socket conneted", socket);
+    
+
+    const eventName = `notification::${profile?._id}`;
+
+        const handleNewMessage = async () => {
+      toast.success("Socket connnected")
+    }
+ 
+    socket.on(eventName, handleNewMessage);
+    return () => {
+      socket.off(eventName, handleNewMessage);
+    }
+  }, [profile?._id, socket])
 
   const handleLogout = () => {
     Cookies.remove("accessToken");

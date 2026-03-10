@@ -5,9 +5,11 @@ import {
   MessageSquare,
   X
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConversationPanel from "./ConversationPanel";
 import { useSearchParams } from "next/navigation";
+import useSocket from "@/hooks/useSocket";
+import { toast } from "sonner";
 
 // ───────────────── Types ─────────────────
 
@@ -32,9 +34,29 @@ function ChatListPanel({
   onSelect: (conversationId: string) => void;
   requestId: string;
 }) {
-  const { data, isLoading } = useGetOwnerConversationQuery(requestId);
+  const { data, isLoading, refetch } = useGetOwnerConversationQuery(requestId);
+  const {data: profileData} = useGetProfileQuery({})
 
-  if (isLoading) {
+
+  const socket = useSocket();
+
+  useEffect(() => {
+    if (!profileData || !socket ) return;
+
+    const eventName = `chat_notification`;
+
+    const handleNewChat = async () => {
+      console.log("chat connect", socket);      
+      refetch()
+    };
+
+    socket.on(eventName, handleNewChat);
+    return () => {
+      socket.off(eventName, handleNewChat);
+    };
+  }, [socket, profileData]);
+
+    if (isLoading) {
     return <p className="p-4 text-gray-400">Loading conversations...</p>;
   }
 

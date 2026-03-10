@@ -1,16 +1,11 @@
 "use client";
 
-import { Plus } from "lucide-react";
-import { useState } from "react";
-import AllRequestList from "./AllRequestList";
-import { useGetCategoriesQuery } from "@/redux/slice/categoryApi";
-import { useSearchParams } from "next/navigation";
-import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
 import { useGetSearchParams } from "@/hooks/getSearchParams";
+import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
+import { useGetCategoriesQuery } from "@/redux/slice/categoryApi";
+import AllRequestList from "./AllRequestList";
 
-export default function RequestBoard() {
-    const [activeCategory, setActiveCategory] = useState("All");
-    const [activeTab, setActiveTab] = useState<"all" | "mylist">("all");
+export default function RequestBoard() {    
     const { data: categoryData, isLoading: loadingCat } = useGetCategoriesQuery({})
     const updateSearchParams = useUpdateSearchParams()
     const { categoryId } = useGetSearchParams()
@@ -18,8 +13,6 @@ export default function RequestBoard() {
     const handleAddParams = (id: string) => {
         updateSearchParams('categoryId', id)
     }
-
-    console.log("categoryId", categoryId);
 
     return (
         <div className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-10 py-8">
