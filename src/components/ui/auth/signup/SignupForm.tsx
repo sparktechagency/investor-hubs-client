@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { User, Mail, Lock, Phone, Building, DollarSign, MapPin, Briefcase } from 'lucide-react';
+import { User, Mail, Lock, Phone, Building, DollarSign, MapPin, Briefcase, EyeOff, Eye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '../../button';
@@ -34,6 +34,8 @@ export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [signup] = useSignupMutation();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,9 +123,9 @@ export function SignupForm() {
 
       if (response.success) {
         toast.success("We’ve sent an OTP to your email. Please verify your account using the OTP.")
-        setIsLoading(false)
         router.replace('/otp-verify');
         Cookies.set("verify-email", payload?.email)
+        setIsLoading(false)
       }
     } catch (err: any) {
       toast.error(err?.data?.message)
@@ -210,7 +212,7 @@ export function SignupForm() {
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                   <input
-                    type="password"
+                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -218,6 +220,17 @@ export function SignupForm() {
                     placeholder="Minimum 8 characters"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -227,7 +240,7 @@ export function SignupForm() {
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                   <input
-                    type="password"
+                     type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -235,6 +248,17 @@ export function SignupForm() {
                     placeholder="Re-enter password"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="w-5 h-5" />
+                    ) : (
+                      <Eye className="w-5 h-5" />
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -396,21 +420,21 @@ export function SignupForm() {
                   </span>
                 </label>
               </div>
+            </div>
+
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Creating Account...' : 'Create Account'}
+            </Button>
+
+            <p className="text-xs text-center text-gray-500">
+              All information is handled confidentially.
+            </p>
+
+            {error && (
+              <div className="mt-2 text-sm text-red-500">
+                {error}
               </div>
-
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Creating Account...' : 'Create Account'}
-              </Button>
-
-              <p className="text-xs text-center text-gray-500">
-                All information is handled confidentially.
-              </p>
-
-              {error && (
-                <div className="mt-2 text-sm text-red-500">
-                  {error}
-                </div>
-              )}
+            )}
           </form>
 
           <div className="mt-6 text-center text-sm text-gray-400">

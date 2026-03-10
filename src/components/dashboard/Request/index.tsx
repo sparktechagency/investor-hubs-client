@@ -3,18 +3,23 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import AllRequestList from "./AllRequestList";
+import { useGetCategoriesQuery } from "@/redux/slice/categoryApi";
+import { useSearchParams } from "next/navigation";
+import { useUpdateSearchParams } from "@/hooks/useUpdateSearchParams";
+import { useGetSearchParams } from "@/hooks/getSearchParams";
 
 export default function RequestBoard() {
-    const [activeCategory, setActiveCategory] = useState("All");    
+    const [activeCategory, setActiveCategory] = useState("All");
     const [activeTab, setActiveTab] = useState<"all" | "mylist">("all");
+    const { data: categoryData, isLoading: loadingCat } = useGetCategoriesQuery({})
+    const updateSearchParams = useUpdateSearchParams()
+    const { categoryId } = useGetSearchParams()
 
-    const categories = [
-        "All",
-        "Vacant Land",
-        "Farms",
-        "Hotels",
-        "Investment Portfolios",
-    ];
+    const handleAddParams = (id: string) => {
+        updateSearchParams('categoryId', id)
+    }
+
+    console.log("categoryId", categoryId);
 
     return (
         <div className="min-h-screen bg-black text-white px-4 sm:px-6 lg:px-10 py-8">
@@ -25,26 +30,35 @@ export default function RequestBoard() {
                     <p className="text-sm text-gray-400">
                         Connect with the community anonymously.
                     </p>
-                </div>                
+                </div>
             </div>
 
             {/* Filters */}
             <div className="flex flex-wrap gap-2 mb-8">
-                {categories.map((cat) => (
+                <button
+                    onClick={() => updateSearchParams("categoryId",)}
+                    className={`px-4 py-1.5 rounded-full text-sm border transition cursor-pointer ${!categoryId
+                            ? "bg-primary! text-white border-primary"
+                            : "border-[#E6C97A]/30 text-gray-300 hover:border-[#E6C97A]"
+                        }`}
+                >
+                    All
+                </button>
+                {categoryData?.data?.map((cat: any) => (
                     <button
                         key={cat}
-                        onClick={() => setActiveCategory(cat)}
-                        className={`px-4 py-1.5 rounded-full text-sm border transition cursor-pointer ${activeCategory === cat
+                        onClick={() => handleAddParams(cat?._id)}
+                        className={`px-4 py-1.5 rounded-full text-sm border transition cursor-pointer ${cat?._id === categoryId
                             ? "bg-primary text-black border-[#E6C97A]"
                             : "border-[#E6C97A]/30 text-gray-300 hover:border-[#E6C97A]"
                             }`}
                     >
-                        {cat}
+                        {cat?.name}
                     </button>
                 ))}
             </div>
 
-          <AllRequestList />             
+            <AllRequestList />
         </div>
     );
 }

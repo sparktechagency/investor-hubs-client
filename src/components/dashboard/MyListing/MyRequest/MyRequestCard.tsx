@@ -1,6 +1,6 @@
 import { getImageUrl } from '@/utils/baseUrl';
 import getStringToAvater from '@/utils/getStringToAvater';
-import { Avatar } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import { MessageCircleMore, Eye, Pencil, Trash2 } from 'lucide-react'
 import Image from 'next/image';
 import React, { useState } from 'react'
@@ -8,6 +8,30 @@ import { formatChatTime } from '../../Shared/FormatChatTime ';
 
 const MyRequestCard = ({ req, setOpenConversation, setSelectRequest, onView, onEdit, setOpenUpdateModal, setDeleteModal, setDetailModal, }: any) => {
 
+  const getStatusStyle = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case "active":
+        return {
+          backgroundColor: "#16a34a",
+          color: "#fff",
+        };
+      case "pending":
+        return {
+          backgroundColor: "#f59e0b",
+          color: "#fff",
+        };
+      case "cancelled":
+        return {
+          backgroundColor: "#ef4444",
+          color: "#fff",
+        };
+      default:
+        return {
+          backgroundColor: "#6b7280",
+          color: "#fff",
+        };
+    }
+  };
   return (
     <div
       className="bg-[#111111] border border-[#D4AF371A] rounded-xl p-5 sm:p-6 hover:border-[#E6C97A]/40 transition"
@@ -25,10 +49,16 @@ const MyRequestCard = ({ req, setOpenConversation, setSelectRequest, onView, onE
             <p className="text-xs text-gray-500">{formatChatTime(req?.createdAt)}</p>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+          <div className="flex gap-2">
           <span className="px-3 py-1 rounded-full text-xs border border-[#D4AF3733] text-primary bg-[#D4AF371A] w-fit">
             {req?.topic}
           </span>
+
+          <Button size='small' sx={getStatusStyle(req?.status?.toLowerCase())} className='rounded-full!'>
+            {req?.status}
+          </Button>
+          </div>
           {/* Action Buttons */}
           <div className="flex items-center gap-1">
             <button
@@ -46,7 +76,7 @@ const MyRequestCard = ({ req, setOpenConversation, setSelectRequest, onView, onE
               <Pencil size={15} />
             </button>
             <button
-              onClick={() => { setDeleteModal(true);  setSelectRequest(req) }}
+              onClick={() => { setDeleteModal(true); setSelectRequest(req) }}
               title="Delete"
               className="p-1.5 rounded-lg text-gray-400 hover:text-red-400 hover:bg-red-400/10 border border-transparent hover:border-red-400/20 transition-all duration-200 cursor-pointer"
             >
