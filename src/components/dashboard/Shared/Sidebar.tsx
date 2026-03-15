@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
   },
   { name: "Profile", href: "/user-dashboard/profile", icon: User },
   { name: "Settings", href: "/user-dashboard/settings", icon: Settings },
+  { name: "Feedback", href: "/user-dashboard/feedback", icon: Settings },
   // {
   //   name: "Help & Support",
   //   href: "/user-dashboard/help-and-support",

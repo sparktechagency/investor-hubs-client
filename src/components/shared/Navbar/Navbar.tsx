@@ -25,21 +25,15 @@ export function Navbar({ profile }: { profile?: any }) {
     { name: "Pricing", path: "/pricing" },
   ];
 
-    const socket = useSocket();
-
-  // ✅ FIX 2: Proper socket listener with cleanup
+  const socket = useSocket();
   useEffect(() => {
     if (!profile?._id || !socket) return;
-
-    console.log("socket conneted", socket);
-    
-
     const eventName = `notification::${profile?._id}`;
 
-        const handleNewMessage = async () => {
+    const handleNewMessage = async () => {
       toast.success("Socket connnected")
     }
- 
+
     socket.on(eventName, handleNewMessage);
     return () => {
       socket.off(eventName, handleNewMessage);
