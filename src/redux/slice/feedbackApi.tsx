@@ -48,6 +48,13 @@ const feedbackApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["feedback"],
     }),
+    getInvestorBrief: build.query({
+      query: () => ({
+        url: `/briefs/users${location.search}`,
+        method: "GET",
+      }),
+      providesTags: ["brief"],
+    }),
   }),
 });
 
@@ -57,4 +64,5 @@ export const {
   useCreateFeedbackMutation,
   useUpdateFeedbackMutation,
   useDeleteFeedbackMutation,
+  useGetInvestorBriefQuery,
 } = feedbackApi;

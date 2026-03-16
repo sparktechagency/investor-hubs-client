@@ -50,10 +50,10 @@ const WhatYouGet = () => {
                     ].map((benefit, index) => (
                         <div
                             key={index}
-                            className="bg-[#111111] border border-[#D4AF37]/20 rounded-xl p-8 hover:border-[#D4AF37]/50 transition-all duration-300"
+                            className="bg-[#111111] border border-primary/20 rounded-xl p-8 hover:border-primary/50 transition-all duration-300"
                         >
-                            <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-6">
-                                <benefit.icon className="w-7 h-7 text-[#D4AF37]" />
+                            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                                <benefit.icon className="w-7 h-7 text-primary" />
                             </div>
                             <h3 className="text-xl font-serif text-white mb-3">{benefit.title}</h3>
                             <p className="text-gray-400 leading-relaxed">{benefit.description}</p>

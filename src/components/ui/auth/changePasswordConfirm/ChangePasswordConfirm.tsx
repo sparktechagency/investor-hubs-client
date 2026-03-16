@@ -113,22 +113,22 @@ export function ChangePasswordConfirm() {
       <div className="min-h-screen bg-black py-20 px-6">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#D4AF37]/20 mb-6 animate-fadeIn">
-              <CheckCircle className="w-8 h-8 text-[#D4AF37]" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 mb-6 animate-fadeIn">
+              <CheckCircle className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-4xl font-serif text-white mb-2">Password Updated Successfully</h1>
             <p className="text-gray-400">Your account password has been changed</p>
           </div>
           
-          <div className="bg-[#111111] p-8 rounded-xl border border-[#D4AF37]/20">
+          <div className="bg-[#111111] p-8 rounded-xl border border-primary/20">
             <div className="space-y-6 text-center">
-              <div className="bg-[#1A1A1A] border border-[#D4AF37]/10 rounded-lg p-6">
-                <Lock className="w-8 h-8 text-[#D4AF37] mx-auto mb-4" />
+              <div className="bg-[#1A1A1A] border border-primary/10 rounded-lg p-6">
+                <Lock className="w-8 h-8 text-primary mx-auto mb-4" />
                 <p className="text-gray-300 mb-4">
                   Your password has been successfully updated. Use your new password the next time you sign in.
                 </p>
                 <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-                  <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                  <CheckCircle className="w-4 h-4 text-primary" />
                   <span>Encrypted and stored securely</span>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export function ChangePasswordConfirm() {
       <div className="max-w-2xl mx-auto">
         <button
           onClick={() => router.replace('/dashboard/settings')}
-          className="flex items-center gap-2 text-gray-400 hover:text-[#D4AF37] transition-colors mb-8"
+          className="flex items-center gap-2 text-gray-400 hover:text-primary transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Settings
@@ -177,7 +177,7 @@ export function ChangePasswordConfirm() {
           <p className="text-gray-400">Update your account password to keep your account secure</p>
         </div>
         
-        <div className="bg-[#111111] p-8 rounded-xl border border-[#D4AF37]/20">
+        <div className="bg-[#111111] p-8 rounded-xl border border-primary/20">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Current Password */}
             <div>
@@ -191,7 +191,7 @@ export function ChangePasswordConfirm() {
                   name="currentPassword"
                   value={formData.currentPassword}
                   onChange={handleChange}
-                  className="w-full bg-[#1A1A1A] border border-[#D4AF37]/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                  className="w-full bg-[#1A1A1A] border border-primary/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                   placeholder="Enter current password"
                   required
                 />
@@ -205,7 +205,7 @@ export function ChangePasswordConfirm() {
               </div>
             </div>
             
-            <div className="border-t border-[#D4AF37]/10 pt-6">
+            <div className="border-t border-primary/10 pt-6">
               {/* New Password */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -218,7 +218,7 @@ export function ChangePasswordConfirm() {
                     name="newPassword"
                     value={formData.newPassword}
                     onChange={handleChange}
-                    className="w-full bg-[#1A1A1A] border border-[#D4AF37]/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                    className="w-full bg-[#1A1A1A] border border-primary/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                     placeholder="Minimum 8 characters"
                     required
                   />
@@ -266,7 +266,7 @@ export function ChangePasswordConfirm() {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full bg-[#1A1A1A] border border-[#D4AF37]/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                    className="w-full bg-[#1A1A1A] border border-primary/20 rounded-lg pl-12 pr-12 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
                     placeholder="Re-enter new password"
                     required
                   />
@@ -282,18 +282,18 @@ export function ChangePasswordConfirm() {
             </div>
             
             {/* Password Requirements */}
-            <div className="bg-[#1A1A1A] border border-[#D4AF37]/10 rounded-lg p-5">
+            <div className="bg-[#1A1A1A] border border-primary/10 rounded-lg p-5">
               <p className="text-xs text-gray-400 mb-3 font-medium">Password Requirements:</p>
               <div className="grid grid-cols-1 gap-2 text-xs">
-                <div className={`flex items-center gap-2 ${formData.newPassword.length >= 8 ? 'text-[#D4AF37]' : 'text-gray-500'}`}>
+                <div className={`flex items-center gap-2 ${formData.newPassword.length >= 8 ? 'text-primary' : 'text-gray-500'}`}>
                   <CheckCircle className="w-4 h-4" />
                   <span>At least 8 characters</span>
                 </div>
-                <div className={`flex items-center gap-2 ${formData.newPassword && formData.newPassword === formData.confirmPassword ? 'text-[#D4AF37]' : 'text-gray-500'}`}>
+                <div className={`flex items-center gap-2 ${formData.newPassword && formData.newPassword === formData.confirmPassword ? 'text-primary' : 'text-gray-500'}`}>
                   <CheckCircle className="w-4 h-4" />
                   <span>Passwords match</span>
                 </div>
-                <div className={`flex items-center gap-2 ${formData.currentPassword && formData.newPassword && formData.currentPassword !== formData.newPassword ? 'text-[#D4AF37]' : 'text-gray-500'}`}>
+                <div className={`flex items-center gap-2 ${formData.currentPassword && formData.newPassword && formData.currentPassword !== formData.newPassword ? 'text-primary' : 'text-gray-500'}`}>
                   <CheckCircle className="w-4 h-4" />
                   <span>Different from current password</span>
                 </div>
@@ -331,23 +331,23 @@ export function ChangePasswordConfirm() {
         </div>
         
         {/* Security Tips */}
-        <div className="mt-6 bg-[#111111] border border-[#D4AF37]/20 rounded-lg p-6">
+        <div className="mt-6 bg-[#111111] border border-primary/20 rounded-lg p-6">
           <h3 className="text-white font-serif text-lg mb-4">Security Tips</h3>
           <ul className="space-y-2 text-sm text-gray-400">
             <li className="flex items-start gap-2">
-              <span className="text-[#D4AF37] mt-1">•</span>
+              <span className="text-primary mt-1">•</span>
               <span>Use a unique password that you don't use on other websites</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-[#D4AF37] mt-1">•</span>
+              <span className="text-primary mt-1">•</span>
               <span>Include a mix of uppercase, lowercase, numbers, and special characters</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-[#D4AF37] mt-1">•</span>
+              <span className="text-primary mt-1">•</span>
               <span>Avoid common words, phrases, or personal information</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-[#D4AF37] mt-1">•</span>
+              <span className="text-primary mt-1">•</span>
               <span>Change your password regularly to maintain account security</span>
             </li>
           </ul>

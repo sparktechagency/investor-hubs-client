@@ -5,15 +5,15 @@ import Link from 'next/link'
 
 const UnLockMarket = () => {
   return (
-    <section className="py-32 bg-[#0A0A0A] border-t border-[#D4AF37]/10">
+    <section className="py-32 bg-[#0A0A0A] border-t border-primary/10">
       <div className="max-w-5xl mx-auto px-6 text-center">
         <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">
           Unlock Off-Market {' '}
-          <span className="text-[#D4AF37]">Opportunities</span>
+          <span className="text-primary">Opportunities</span>
         </h2>
 
         <p className="text-lg text-gray-400 mb-12"> Join South Africa's most exclusive investor network
-          Full access to off-market listings, anonymous chat, and monthly insights for just <span className="text-[#D4AF37] font-medium">R99/month</span>
+          Full access to off-market listings, anonymous chat, and monthly insights for just <span className="text-primary font-medium">R99/month</span>
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">

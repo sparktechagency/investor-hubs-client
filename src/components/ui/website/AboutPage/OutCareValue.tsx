@@ -27,9 +27,9 @@ const OutCareValue = () => {
                             description: 'We foster a community of professionals. Verification is mandatory to maintain our high standards.'
                         }
                     ].map((value, index) => (
-                        <div key={index} className="bg-[#111111] p-8 rounded-xl border border-[#D4AF37]/10 hover:border-[#D4AF37]/40 transition-all duration-300 group">
-                            <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37] transition-colors duration-300">
-                                <value.icon className="w-7 h-7 text-[#D4AF37] group-hover:text-black transition-colors duration-300" />
+                        <div key={index} className="bg-[#111111] p-8 rounded-xl border border-primary/10 hover:border-primary/40 transition-all duration-300 group">
+                            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300">
+                                <value.icon className="w-7 h-7 text-primary group-hover:text-black transition-colors duration-300" />
                             </div>
                             <h3 className="text-xl font-serif text-white mb-3">{value.title}</h3>
                             <p className="text-gray-400 leading-relaxed">{value.description}</p>

@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
     href: "/user-dashboard/subscription",
     icon: CreditCard,
   },
+  { name: "Investor Brief", href: "/user-dashboard/investor-brief", icon: User },
   { name: "Profile", href: "/user-dashboard/profile", icon: User },
   { name: "Feedback", href: "/user-dashboard/feedback", icon: MessageCircleMore },
   { name: "Settings", href: "/user-dashboard/settings", icon: Settings },

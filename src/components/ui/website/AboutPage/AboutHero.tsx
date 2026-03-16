@@ -5,10 +5,10 @@ import { Button } from '../../button'
 const AboutHero = () => {
 
     return (
-        <section className=" py-10 lg:py-32 border-t border-[#D4AF37]/10 grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
+        <section className=" py-10 lg:py-32 border-t border-primary/10 grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
             <div className="px-6 text-start">
                 <div className="mb-6">
-                    <span className="inline-block px-4 py-2 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-full text-[#D4AF37] text-sm font-medium mb-8">
+                    <span className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-medium mb-8">
                         Our Story
                     </span>
                 </div>

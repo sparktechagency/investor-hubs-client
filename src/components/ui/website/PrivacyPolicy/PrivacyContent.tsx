@@ -11,11 +11,11 @@ const PrivacyContent = () => {
                     Last Updated: January 18, 2026
                 </p>
             </div>
-            <div className="bg-[#111111] border border-[#D4AF37]/10 rounded-xl p-8 md:p-12 prose prose-invert max-w-none">
+            <div className="bg-[#111111] border border-primary/10 rounded-xl p-8 md:p-12 prose prose-invert max-w-none">
 
                 <div className="mb-12">
                     <h2 className="text-2xl font-serif text-white mb-4 flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] text-sm font-bold">1</span>
+                        <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">1</span>
                         Introduction
                     </h2>
                     <p className="text-gray-400 leading-relaxed">
@@ -28,7 +28,7 @@ const PrivacyContent = () => {
 
                 <div className="mb-12">
                     <h2 className="text-2xl font-serif text-white mb-4 flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] text-sm font-bold">2</span>
+                        <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">2</span>
                         Data We Collect
                     </h2>
                     <p className="text-gray-400 leading-relaxed mb-4">
@@ -45,7 +45,7 @@ const PrivacyContent = () => {
 
                 <div className="mb-12">
                     <h2 className="text-2xl font-serif text-white mb-4 flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] text-sm font-bold">3</span>
+                        <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">3</span>
                         How We Use Your Data
                     </h2>
                     <p className="text-gray-400 leading-relaxed mb-4">
@@ -69,7 +69,7 @@ const PrivacyContent = () => {
 
                 <div className="mb-12">
                     <h2 className="text-2xl font-serif text-white mb-4 flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] text-sm font-bold">4</span>
+                        <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">4</span>
                         Data Security
                     </h2>
                     <p className="text-gray-400 leading-relaxed">
@@ -82,12 +82,12 @@ const PrivacyContent = () => {
 
                 <div>
                     <h2 className="text-2xl font-serif text-white mb-4 flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] text-sm font-bold">5</span>
+                        <span className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">5</span>
                         Contact Us
                     </h2>
                     <p className="text-gray-400 leading-relaxed">
                         If you have any questions about this privacy policy or our privacy practices, please contact us at:
-                        <a href="mailto:privacy@investorshub.co.za" className="text-[#D4AF37] hover:underline ml-1">privacy@investorshub.co.za</a>.
+                        <a href="mailto:privacy@investorshub.co.za" className="text-primary hover:underline ml-1">privacy@investorshub.co.za</a>.
                     </p>
                 </div>
 

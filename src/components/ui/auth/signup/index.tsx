@@ -18,8 +18,8 @@ const Signup = () => {
           <div className="space-y-2">
             <div className="flex items-start gap-4">
 
-              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
-                <Shield size={30}  className="text-[#D4AF37]! font-medium" />
+              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <Shield size={30}  className="text-primary! font-medium" />
                
               </div>
               <div>
@@ -29,8 +29,8 @@ const Signup = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
-                <User size={30} className="text-[#D4AF37] font-medium" />
+              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <User size={30} className="text-primary font-medium" />
               </div>
               <div>
                 <h4 className="text-lg font-serif text-white mb-2">Anonymous Chat</h4>

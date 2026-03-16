@@ -19,8 +19,8 @@ const MonthlyInvestorBrief = () => {
 
           <div className="space-y-2">
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-[#D4AF37] font-medium">1</span>
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary font-medium">1</span>
               </div>
               <div>
                 <h4 className="text-lg font-serif text-white mb-2">New Off-Market Listings</h4>
@@ -29,8 +29,8 @@ const MonthlyInvestorBrief = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-[#D4AF37] font-medium">2</span>
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary font-medium">2</span>
               </div>
               <div>
                 <h4 className="text-lg font-serif text-white mb-2">Development Pipeline Updates</h4>
@@ -39,8 +39,8 @@ const MonthlyInvestorBrief = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 flex items-center justify-center flex-shrink-0">
-                <span className="text-[#D4AF37] font-medium">3</span>
+              <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-primary font-medium">3</span>
               </div>
               <div>
                 <h4 className="text-lg font-serif text-white mb-2">Market Insights & Trends</h4>

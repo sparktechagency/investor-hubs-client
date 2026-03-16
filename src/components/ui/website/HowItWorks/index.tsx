@@ -19,8 +19,8 @@ const HowItWorks = () => {
                 <PrivacySection />
             </Container>
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-                <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-[128px] -translate-x-1/2" />
-                <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-[128px] translate-x-1/2" />
+                <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary rounded-full blur-[128px] -translate-x-1/2" />
+                <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary rounded-full blur-[128px] translate-x-1/2" />
             </div>
         </div>
     )

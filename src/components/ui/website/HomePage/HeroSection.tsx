@@ -31,14 +31,14 @@ const HeroSection = () => {
       <div className="relative z-10  text-center pt-20">
        
         <div className="mb-6">
-          <h1 className="inline-block px-4 py-2 bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-full text-[#D4AF37] text-sm font-medium mb-8">
+          <h1 className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-primary text-sm font-medium mb-8">
             South Africa's Premier Off-Market Network
           </h1>
         </div>        
 
         <h1 className={`${playFairDisplay?.className} text-3xl md:text-5xl lg:text-7xl font-serif mb-8 text-white leading-[1.1] tracking-tight`}>
           South Africa's Off-Market<br />
-          <span className="text-[#D4AF37]"> Property & Investment Network</span><br />
+          <span className="text-primary"> Property & Investment Network</span><br />
           
         </h1>
 
@@ -69,15 +69,15 @@ const HeroSection = () => {
 
         <div className="mt-12 flex items-center justify-center gap-8 text-sm text-gray-500">
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#D4AF37]" />
+            <Shield className="w-4 h-4 text-primary" />
             <span className='text-white'>Verified Network</span>
           </div>
           <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-[#D4AF37]" />
+            <Lock className="w-4 h-4 text-primary" />
             <span className='text-white'>100% Anonymous</span>
           </div>
           <div className="flex items-center gap-2">
-            <Eye className="w-4 h-4 text-[#D4AF37]" />
+            <Eye className="w-4 h-4 text-primary" />
             <span className='text-white'>Off-Market Only</span>
           </div>
         </div>

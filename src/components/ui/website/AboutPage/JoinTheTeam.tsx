@@ -3,7 +3,7 @@ import React from 'react'
 
 const JoinTheTeam = () => {
   return (
-    <div className="p-12 max-w-4xl mt-20 mx-auto rounded-lg mb-20 bg-[#111111] border border-[#D4AF37]/10 group-hover:border-[#D4AF37]/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(212,175,55,0.15)] relative overflow-hidden">
+    <div className="p-12 max-w-4xl mt-20 mx-auto rounded-lg mb-20 bg-[#111111] border border-primary/10 group-hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(212,175,55,0.15)] relative overflow-hidden">
       <h2 className="text-3xl font-serif text-white mb-6 text-center">
         Join the <span className='text-primary'>Network</span>
       </h2>
@@ -12,7 +12,7 @@ const JoinTheTeam = () => {
         Access opportunities that others never see.
       </p>
       <div className="flex justify-center">
-        <Link href="/login"> <button className="bg-[#D4AF37] text-black px-8 py-4 rounded-lg font-semibold hover:bg-white transition-colors">
+        <Link href="/login"> <button className="bg-primary text-black px-8 py-4 rounded-lg font-semibold hover:bg-white transition-colors">
           Apply for Membership
         </button></Link>
       </div>

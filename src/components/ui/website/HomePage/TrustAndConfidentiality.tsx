@@ -15,8 +15,8 @@ const TrustAndConfidentiality = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-[#111111] border border-[#D4AF37]/20 rounded-xl p-8">
-            <Lock className="w-12 h-12 text-[#D4AF37] mb-6" />
+          <div className="bg-[#111111] border border-primary/20 rounded-xl p-8">
+            <Lock className="w-12 h-12 text-primary mb-6" />
             <h3 className="text-2xl font-serif text-white mb-4">Secure Platform Communication</h3>
             <p className="text-gray-400 leading-relaxed mb-6">
               All messages, documents, and data are encrypted and secured. Your conversations
@@ -24,22 +24,22 @@ const TrustAndConfidentiality = () => {
             </p>
             <div className="space-y-2 text-sm text-gray-500">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                <CheckCircle className="w-4 h-4 text-primary" />
                 <span>End-to-end encrypted messaging</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                <CheckCircle className="w-4 h-4 text-primary" />
                 <span>Secure document sharing</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                <CheckCircle className="w-4 h-4 text-primary" />
                 <span>No data sold to third parties</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-[#111111] border border-[#D4AF37]/20 rounded-xl p-8">
-            <Shield className="w-12 h-12 text-[#D4AF37] mb-6" />
+          <div className="bg-[#111111] border border-primary/20 rounded-xl p-8">
+            <Shield className="w-12 h-12 text-primary mb-6" />
             <h3 className="text-2xl font-serif text-white mb-4">Confidential Seller Information</h3>
             <p className="text-gray-400 leading-relaxed mb-6">
               Sellers can list opportunities without revealing their identity. We facilitate
@@ -47,15 +47,15 @@ const TrustAndConfidentiality = () => {
             </p>
             <div className="space-y-2 text-sm text-gray-500">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                <CheckCircle className="w-4 h-4 text-primary" />
                 <span>Anonymous listing options</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                <CheckCircle className="w-4 h-4 text-primary" />
                 <span>Controlled information release</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#D4AF37]" />
+                <CheckCircle className="w-4 h-4 text-primary" />
                 <span>Professional facilitation</span>
               </div>
             </div>

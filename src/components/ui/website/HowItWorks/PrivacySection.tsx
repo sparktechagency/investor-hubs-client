@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const PrivacySection = () => {
     return (
-        <div className="p-12 max-w-4xl mt-20 mx-auto rounded-lg mb-20 bg-[#111111] border border-[#D4AF37]/10 group-hover:border-[#D4AF37]/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(212,175,55,0.15)] relative overflow-hidden">
+        <div className="p-12 max-w-4xl mt-20 mx-auto rounded-lg mb-20 bg-[#111111] border border-primary/10 group-hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_30px_-10px_rgba(212,175,55,0.15)] relative overflow-hidden">
             <h2 className="text-3xl font-serif text-white mb-6 text-center">
                 Your Privacy is <span className='text-primary'>Our Priority</span>
             </h2>
