@@ -31,7 +31,7 @@ export default function ProfilePage({ profile }: any) {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [editProfile, { isLoading: isSaving }] = useEditProfileMutation();
-
+  
   const [form, setForm] = useState({
     name: "",
     email: "",
